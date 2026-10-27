@@ -494,6 +494,34 @@ body[data-timer=bottom] .timer{bottom:calc(78px + env(safe-area-inset-bottom));w
 .modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media(hover:none){.routine:hover,.grid>div:hover,.history:hover{border-color:var(--line)}}
 
+
+/* ---- Affinage mobile (téléphone) ---- */
+.shell{padding-left:16px;padding-right:16px}
+h1{font-size:clamp(30px,9.5vw,40px);line-height:1.05;overflow-wrap:anywhere}
+.tabs [role=tab],.tab{display:flex;align-items:center;justify-content:center;padding:0}
+
+/* Séries : bouton Valider réduit à une icône, champs plus larges */
+.set,.labelrow{grid-template-columns:22px minmax(0,1fr) minmax(0,1fr) 56px 40px;gap:6px}
+.check{min-width:56px;padding:0}
+.check>span:last-child{display:none}
+.check-icon{width:24px;height:24px;font-size:20px}
+.labelrow>span:nth-child(4){visibility:hidden}
+.set-row .icon-btn{min-width:40px;min-height:40px}
+.circuit-round{padding:14px 12px}
+.circuit-round .set-row{grid-template-columns:22px minmax(0,1fr) minmax(0,1fr) 56px}
+.circuit-round .set-row>span:last-child:empty{display:none}
+
+/* Cartes, programme, échauffement */
+.routine-top{flex-wrap:wrap;gap:2px 12px}
+.px-acts .icon-btn{min-width:40px;min-height:40px}
+.cx-config label{width:calc(50% - 5px)}
+.cx-config .px-method{width:100%}
+.wu-actions .btn{min-width:0;padding:0 10px}
+.wu-clock{font-size:56px}
+
+/* Chrono et notification */
+.timer{flex-wrap:wrap;gap:8px 12px}
+body:not(:has(.timer:not([hidden]))) .toast{bottom:calc(86px + env(safe-area-inset-bottom))}
 }
 </style></head>
 <body>
