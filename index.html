@@ -84,41 +84,52 @@
 const KEY='oxymuscle-v1',OLD_KEY='repere-training-v1',reduce=matchMedia('(prefers-reduced-motion: reduce)');
 const $=s=>document.querySelector(s),app=$('#app'),uid=p=>`${p}-${Math.random().toString(36).slice(2,8)}-${Date.now().toString(36)}`;
 const starter=()=>[
-{id:'push',name:'Push',exercises:[
-  {name:'Pompes surélevées',sets:4,reps:'3×20, puis AMRAP',rest:210,mode:'bodyweight',method:'volume',note:'Dernière série ou AMRAP : méthode Rest-Pause (va à l’échec, 15 s de pause sur place, puis refais quelques répétitions). Progression : +1 répétition par rapport à ta séance précédente. RIR cible : 1 à 2 sur les séries de travail.'},
-  {name:'Pompes classiques',sets:3,reps:'1×20, puis AMRAP',rest:180,mode:'bodyweight',method:'volume',note:'Tempo lent : 3 s pour descendre, 1 s de pause en bas, remontée explosive. Progression : +1 répétition. RIR cible : 1.'},
-  {name:'Pompes piquées',sets:3,reps:'10',rest:120,mode:'bodyweight',method:'volume',note:'Accentue l’inclinaison si c’est trop facile, ou marque 1 s de contraction en bas pour supprimer l’élan. Progression : +1 répétition. RIR cible : 1 à 2.'},
-  {name:'EMOM pompes',sets:10,reps:'10',rest:60,mode:'bodyweight',method:'emom',interval:60,note:'10 répétitions chaque minute pendant 10 tours (10:00). Trouve une cadence propre et garde 1 à 3 répétitions en réserve. Pour corser : réduis le temps de transition ou ajoute des tours si tu finis très vite.'}
+{id:"push-a",name:"Lundi · Push A",exercises:[
+  {"name": "Pompes piquées pieds surélevés (ou la variante la plus dure à 4-6 reps)", "sets": 3, "reps": "4-6", "rest": 180, "mode": "bodyweight", "method": "volume", "note": "Force · 0-2 RIR."},
+  {"name": "Pompes classiques ou pieds surélevés (variante maîtrisée)", "sets": 3, "reps": "10-15", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "Volume + tempo · 1-2 RIR · 3 s en descente, 1 s de pause en bas."},
+  {"name": "Pompes diamant (variante intermédiaire)", "sets": 3, "reps": "8-12", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "Force + dégressive · 0-2 RIR · série 3 dégressive : diamant, classiques, mains surélevées, sans repos."},
+  {"name": "Maintien isométrique en bas d’une pompe piquée (tête à 5 cm du sol)", "sets": 3, "reps": "max", "rest": 90, "mode": "bodyweight", "method": "volume", "unit": "sec", "note": "Isométrie · max de temps."}
 ]},
-{id:'pull',name:'Pull (1ère Variante)',exercises:[
-  {name:'Traction stricte',sets:3,reps:'3',rest:180,mode:'bodyweight',method:'volume'},
-  {name:'Traction australienne',sets:3,reps:'8-15',rest:180,mode:'bodyweight',method:'volume'},
-  {name:'Traction négative',sets:3,reps:'3-6',rest:180,mode:'bodyweight',method:'volume'},
-  {name:'Scapula',sets:3,reps:'7-10',rest:120,mode:'bodyweight',method:'volume'},
-  {name:'EMOM Dips',sets:10,reps:'10',rest:60,mode:'bodyweight',method:'emom',interval:60},
-  {name:'Grip (Suspension)',sets:1,reps:'30 s',rest:120,mode:'bodyweight',method:'volume',unit:'sec'}
+{id:"legs-a",name:"Mardi · Legs A + bras",exercises:[
+  {"name": "Fentes avant", "sets": 3, "reps": "10 / jambe", "rest": 90, "mode": "bodyweight", "method": "volume", "note": "Tempo 3 s en descente."},
+  {"name": "Fentes bulgares", "sets": 3, "reps": "8-10 / jambe", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "Série 3 : pause 2 s en bas."},
+  {"name": "Fentes marchées", "sets": 3, "reps": "12 / jambe", "rest": 90, "mode": "bodyweight", "method": "volume"},
+  {"name": "Extension triceps haltère (au-dessus de la tête)", "sets": 3, "reps": "12-15", "rest": 60, "mode": "external", "method": "volume", "note": "Tempo 3 s en descente."},
+  {"name": "Curl marteau", "sets": 3, "reps": "10-12", "rest": 60, "mode": "external", "method": "volume"},
+  {"name": "Curl biceps", "sets": 3, "reps": "10-12", "rest": 60, "mode": "external", "method": "volume", "note": "Série 3 en myo-reps (3-4 mini-séries de 3-5 reps, 10-15 s de repos)."},
+  {"name": "Crucifix crunch", "sets": 3, "reps": "10-12", "rest": 60, "mode": "bodyweight", "method": "volume"},
+  {"name": "Planche latérale", "sets": 3, "reps": "30-45 s / côté", "rest": 45, "mode": "bodyweight", "method": "volume", "unit": "sec"}
 ]},
-{id:'pull-circuit',name:'Pull (2ème Variante)',circuit:{rounds:3,rest:240},exercises:[
-  {name:'Squats',sets:1,reps:'12',rest:0,mode:'bodyweight',method:'volume'},
-  {name:'Fentes',sets:1,reps:'10 / jambe',rest:0,mode:'bodyweight',method:'volume'},
-  {name:'Tractions',sets:1,reps:'3-6',rest:0,mode:'bodyweight',method:'volume'},
-  {name:'Curl biceps pronation',sets:1,reps:'4',rest:0,mode:'external',method:'volume'},
-  {name:'Suspension à la barre',sets:1,reps:'30 s',rest:0,mode:'bodyweight',method:'volume',unit:'sec'},
-  {name:'Dips',sets:1,reps:'10',rest:0,mode:'bodyweight',method:'volume'}
+{id:"pull-a",name:"Mercredi · Pull A + dips",exercises:[
+  {"name": "Tractions strictes, séries courtes (base)", "sets": 5, "reps": "1-2", "rest": 150, "mode": "bodyweight", "method": "volume", "note": "Jamais à l’échec. Repos 2-3 min."},
+  {"name": "Tenue basse, coudes à peine fléchis", "sets": 3, "reps": "6-8 s", "rest": 120, "mode": "bodyweight", "method": "volume", "unit": "sec", "note": "Épaules actives, pas de balancement."},
+  {"name": "Australiennes pieds surélevés", "sets": 3, "reps": "8-12", "rest": 90, "mode": "bodyweight", "method": "volume", "note": "Pause 1 s en haut."},
+  {"name": "Scapula pulls", "sets": 3, "reps": "8-10", "rest": 60, "mode": "bodyweight", "method": "volume"},
+  {"name": "Dips", "sets": 3, "reps": "6-10", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "Tempo 3 s en descente, sans échec."},
+  {"name": "Suspension", "sets": 3, "reps": "max", "rest": 60, "mode": "bodyweight", "method": "volume", "unit": "sec"}
 ]},
-{id:'legs',name:'Legs',exercises:[
-  {name:'Squat',sets:3,reps:'8-12',rest:180,mode:'bodyweight',method:'volume'},
-  {name:'Fentes alternées',sets:4,reps:'10 / jambe',rest:120,mode:'bodyweight',method:'volume'},
-  {name:'Squat jump',sets:4,reps:'10-12',rest:120,mode:'bodyweight',method:'volume'},
-  {name:'Deep Squat',sets:3,reps:'1 min, puis AMRAP',rest:60,mode:'bodyweight',method:'volume'}
+{id:"push-b",name:"Jeudi · Push B",exercises:[
+  {"name": "Pompes archer", "sets": 3, "reps": "4-6 / côté", "rest": 180, "mode": "bodyweight", "method": "volume", "note": "Force · 1-2 RIR."},
+  {"name": "Pompes pieds surélevés (variante maîtrisée)", "sets": 3, "reps": "10-15", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "Volume + tempo · 1-2 RIR · 4 s en descente."},
+  {"name": "Pompes piquées (variante intermédiaire)", "sets": 3, "reps": "6-10", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "Force + dégressive · 1 RIR · série 3 dégressive : piquées, pieds surélevés, classiques, sans repos."},
+  {"name": "Maintien isométrique en bas d’une pompe classique (poitrine à 2 cm du sol)", "sets": 3, "reps": "max", "rest": 90, "mode": "bodyweight", "method": "volume", "unit": "sec", "note": "Isométrie · max de temps."}
 ]},
-{id:'abdo',name:'Abdo',exercises:[
-  {name:'V-Up',sets:3,reps:'10 reps',rest:120,mode:'bodyweight',method:'volume'},
-  {name:'Mountain Climber',sets:3,reps:'30 s',rest:120,mode:'bodyweight',method:'volume',unit:'sec'},
-  {name:'Russian Twists',sets:3,reps:'15 / côté',rest:120,mode:'bodyweight',method:'volume'},
-  {name:'Relevé de jambes',sets:3,reps:'12 reps',rest:120,mode:'bodyweight',method:'volume'},
-  {name:'Gainage classique',sets:2,reps:'1 min 30',rest:60,mode:'bodyweight',method:'volume',unit:'sec'},
-  {name:'Gainage latéral',sets:2,reps:'45 s / côté',rest:60,mode:'bodyweight',method:'volume',unit:'sec'}
+{id:"legs-b",name:"Vendredi · Legs B + bras",exercises:[
+  {"name": "Fentes arrière", "sets": 3, "reps": "10 / jambe", "rest": 90, "mode": "bodyweight", "method": "volume", "note": "Tempo 3 s en descente."},
+  {"name": "Fentes bulgares tempo lent", "sets": 3, "reps": "8 / jambe", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "4 s en descente, pause 1 s en bas."},
+  {"name": "Fentes sautées", "sets": 3, "reps": "8", "rest": 90, "mode": "bodyweight", "method": "volume", "note": "Qualité avant tout."},
+  {"name": "Extension triceps haltère", "sets": 3, "reps": "12-15", "rest": 60, "mode": "external", "method": "volume"},
+  {"name": "Curl marteau", "sets": 3, "reps": "10-12", "rest": 60, "mode": "external", "method": "volume"},
+  {"name": "Planche", "sets": 3, "reps": "45 s", "rest": 45, "mode": "bodyweight", "method": "volume", "unit": "sec"},
+  {"name": "Crucifix crunch", "sets": 3, "reps": "10-12", "rest": 60, "mode": "bodyweight", "method": "volume"}
+]},
+{id:"pull-b",name:"Samedi · Pull B + dips",exercises:[
+  {"name": "Tractions strictes, séries courtes (base)", "sets": 5, "reps": "1-2", "rest": 150, "mode": "bodyweight", "method": "volume", "note": "Jamais à l’échec. Repos 2-3 min."},
+  {"name": "Tenue basse, coudes à peine fléchis", "sets": 3, "reps": "6-8 s", "rest": 120, "mode": "bodyweight", "method": "volume", "unit": "sec", "note": "Épaules actives, pas de balancement."},
+  {"name": "Australiennes prise large", "sets": 3, "reps": "10-15", "rest": 90, "mode": "bodyweight", "method": "volume", "note": "Pause 1 s en haut."},
+  {"name": "Dips", "sets": 3, "reps": "max - 2", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "Sans échec."},
+  {"name": "Relevé de jambes suspendu", "sets": 3, "reps": "8-12", "rest": 60, "mode": "bodyweight", "method": "volume"},
+  {"name": "TEST : max de tractions strictes en 1 série (filmé)", "sets": 1, "reps": "max", "rest": 0, "mode": "bodyweight", "method": "volume", "note": "Toutes les 4 semaines, après 2 jours sans tirer."}
 ]}
 ];
 const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -143,7 +154,7 @@ const describe=ex=>{const p=plan(ex),r=`repos ${fmt(p.rest)}`;return p.m==='pyra
 const applyMethod=(ex,m)=>{const k=METHODS[m]?m:'volume',v=METHODS[k];ex.method=k;ex.sets=v.sets;ex.reps=v.reps;ex.rest=v.rest;if(k==='emom')ex.interval=60};
 function normalize(raw){if(!raw||typeof raw!=='object'||Array.isArray(raw))throw Error('Sauvegarde illisible.');const program=(Array.isArray(raw.program)?raw.program:starter()).map(d=>({id:String(d.id||uid('day')),name:String(d.name||'Séance'),circuit:d.circuit&&typeof d.circuit==='object'?{rounds:Math.max(1,Math.min(20,Math.floor(+d.circuit.rounds)||3)),rest:Math.max(0,Math.min(3600,Number.isFinite(+d.circuit.rest)?Math.floor(+d.circuit.rest):240))}:null,exercises:(Array.isArray(d.exercises)?d.exercises:[]).map(e=>Array.isArray(e)?{id:uid('ex'),name:String(e[0]||'Exercice'),sets:+e[1]||3,reps:String(e[2]||'8-12'),rest:+e[3]||90,mode:e[4]==='bodyweight'||(!e[4]&&inferMode(e[0]))?'bodyweight':'external',method:'volume',interval:60,unit:'reps'}:{id:String(e.id||uid('ex')),name:String(e.name||'Exercice'),sets:Math.max(1,+e.sets||3),reps:String(e.reps||'8-12'),rest:Math.max(0,+e.rest||0),mode:e.mode==='bodyweight'||(!e.mode&&inferMode(e.name))?'bodyweight':'external',method:METHODS[e.method]?e.method:'volume',interval:Math.max(15,Math.min(600,+e.interval||60)),unit:e.unit==='sec'?'sec':'reps',note:String(e.note||'').slice(0,600)})}));const modes=new Map(program.flatMap(d=>d.exercises.map(e=>[e.id,e.mode])));const logs=(Array.isArray(raw.logs)?raw.logs:[]).map(l=>({...l,weight:Number.isFinite(+l.weight)?Math.max(0,+l.weight):0,reps:Number.isFinite(+l.reps)?Math.max(0,+l.reps):0,volume:Number.isFinite(+l.volume)?Math.max(0,+l.volume):0,repVolume:Number.isFinite(+l.repVolume)?Math.max(0,+l.repVolume):Math.max(0,+l.reps||0),epley:Number.isFinite(+l.epley)&&+l.epley>0?+l.epley:null,mode:l.mode==='bodyweight'||(!l.mode&&modes.get(l.exerciseId)==='bodyweight')?'bodyweight':'external'})).filter(l=>l.date&&l.exerciseId&&l.reps>0);for(const log of logs){if(!modes.has(log.exerciseId)){const owner=program.find(d=>d.id===log.dayId),match=owner?.exercises.find(e=>e.name===log.exerciseName)||program.flatMap(d=>d.exercises).find(e=>e.name===log.exerciseName);if(match){log.exerciseId=match.id;log.mode=match.mode}}}const sessions=Array.isArray(raw.sessions)?raw.sessions.filter(x=>x&&x.date&&x.dayId):[];const profile={bodyweightKg:Number.isFinite(+raw.profile?.bodyweightKg)&&+raw.profile.bodyweightKg>0?+raw.profile.bodyweightKg:null,soundEnabled:!!raw.profile?.soundEnabled,warmup:raw.profile?.warmup!==false,theme:['amber','mono','green','yellow'].includes(raw.profile?.theme)?raw.profile.theme:'amber',timer:{mode:['bottom','top','left','right','free'].includes(raw.profile?.timer?.mode)?raw.profile.timer.mode:'bottom',x:Math.min(1,Math.max(0,+raw.profile?.timer?.x||.5)),y:Math.min(1,Math.max(0,+raw.profile?.timer?.y||.6))}};if(raw.circuitSeeded!==true&&!program.some(d=>d.circuit))program.push(makeCircuit());let activeSession=raw.activeSession&&typeof raw.activeSession==='object'?{...raw.activeSession}:null;if(activeSession&&!program.some(d=>d.id===activeSession.dayId))activeSession=null;return{...raw,circuitSeeded:true,program,logs,sessions,profile,activeSession,selectedDayId:program.some(d=>d.id===raw.selectedDayId)?raw.selectedDayId:(program[0]?.id||null)}}
 function load(){const empty=()=>normalize({program:starter(),logs:[],sessions:[]});try{const current=localStorage.getItem(KEY);let raw=current,migrated=false;if(current){try{return{db:normalize(JSON.parse(current)),migrated:false,failed:false}}catch(currentError){raw=localStorage.getItem(OLD_KEY);if(!raw)throw currentError;migrated=true}}else{raw=localStorage.getItem(OLD_KEY);migrated=!!raw}const db=raw?normalize(JSON.parse(raw)):empty();if(migrated){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(_){return{db,migrated:false,failed:true}}}return{db,migrated,failed:false}}catch(error){return{db:empty(),migrated:false,failed:true}}}
-const loaded=load();let db=loaded.db,view='train',dayId=db.activeSession?.dayId||db.selectedDayId||db.program[0]?.id||null,undoData=null,toastActionCallback=null,dialogAction=null,dialogOpener=null,toastTimer=null,tick=null,saveTimer=null,viewAnimation=null,timerAnimation=null,timerGeneration=0,modalCloseTimer=null,modalGeneration=0;
+const loaded=load();const PPL_FLAG='oxymuscle-ppl-v1';try{if(!localStorage.getItem(PPL_FLAG)){const fresh=normalize({program:starter(),logs:[],sessions:[]});loaded.db.program=fresh.program;loaded.db.selectedDayId=fresh.program[0]?.id||null;loaded.db.activeSession=null;localStorage.setItem(KEY,JSON.stringify(loaded.db));localStorage.setItem(PPL_FLAG,'1')}}catch(_){}let db=loaded.db,view='train',dayId=db.activeSession?.dayId||db.selectedDayId||db.program[0]?.id||null,undoData=null,toastActionCallback=null,dialogAction=null,dialogOpener=null,toastTimer=null,tick=null,saveTimer=null,viewAnimation=null,timerAnimation=null,timerGeneration=0,modalCloseTimer=null,modalGeneration=0;
 const dateKey=(date=new Date())=>`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
 const STRIP=(k,v)=>k==='_newRecords'?undefined:v;
 function save(next=db,quiet=false){if(typeof next==='boolean'){quiet=next;next=db}clearTimeout(saveTimer);saveTimer=null;try{localStorage.setItem(KEY,JSON.stringify(next,STRIP));return true}catch(e){if(!quiet)showToast('Enregistrement impossible : exporte tes données avant de fermer.','Données',()=>switchView('data'));return false}}
@@ -296,41 +307,52 @@ const end=()=>{if(!drag)return;drag=null;save(true)};tm.addEventListener('pointe
 const KEY='oxymuscle-v1',OLD_KEY='repere-training-v1',reduce=matchMedia('(prefers-reduced-motion: reduce)');
 const $=s=>document.querySelector(s),app=$('#app'),uid=p=>`${p}-${Math.random().toString(36).slice(2,8)}-${Date.now().toString(36)}`;
 const starter=()=>[
-{id:'push',name:'Push',exercises:[
-  {name:'Decline push-ups',sets:4,reps:'3×20, then AMRAP',rest:210,mode:'bodyweight',method:'volume',note:'Last set or AMRAP: Rest-Pause (go to failure, rest 15 s in place, then do a few more reps). Progression: +1 rep vs. your previous session. Target RIR: 1-2 on working sets.'},
-  {name:'Push-ups',sets:3,reps:'1×20, then AMRAP',rest:180,mode:'bodyweight',method:'volume',note:'Slow tempo: 3 s down, 1 s pause at the bottom, explosive push up. Progression: +1 rep. Target RIR: 1.'},
-  {name:'Pike push-ups',sets:3,reps:'10',rest:120,mode:'bodyweight',method:'volume',note:'Raise the incline if too easy, or hold 1 s at the bottom to remove momentum. Progression: +1 rep. Target RIR: 1-2.'},
-  {name:'EMOM push-ups',sets:10,reps:'10',rest:60,mode:'bodyweight',method:'emom',interval:60,note:'10 reps every minute for 10 rounds (10:00). Find a clean pace and keep 1-3 reps in reserve. To make it harder: cut transition time or add rounds if you finish very fast.'}
+{id:"push-a",name:"Mon · Push A",exercises:[
+  {"name": "Feet-elevated pike push-ups (or the hardest variation at 4-6 reps)", "sets": 3, "reps": "4-6", "rest": 180, "mode": "bodyweight", "method": "volume", "note": "Strength · 0-2 RIR."},
+  {"name": "Push-ups or feet-elevated push-ups (mastered variation)", "sets": 3, "reps": "10-15", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "Volume + tempo · 1-2 RIR · 3 s down, 1 s pause at the bottom."},
+  {"name": "Diamond push-ups (intermediate variation)", "sets": 3, "reps": "8-12", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "Strength + drop set · 0-2 RIR · set 3 is a drop set: diamond, regular, hands elevated, no rest."},
+  {"name": "Isometric hold at the bottom of a pike push-up (head 5 cm from the floor)", "sets": 3, "reps": "max", "rest": 90, "mode": "bodyweight", "method": "volume", "unit": "sec", "note": "Isometric · max time."}
 ]},
-{id:'pull',name:'Pull (Variation 1)',exercises:[
-  {name:'Strict pull-ups',sets:3,reps:'3',rest:180,mode:'bodyweight',method:'volume'},
-  {name:'Australian pull-ups',sets:3,reps:'8-15',rest:180,mode:'bodyweight',method:'volume'},
-  {name:'Negative pull-ups',sets:3,reps:'3-6',rest:180,mode:'bodyweight',method:'volume'},
-  {name:'Scapular pulls',sets:3,reps:'7-10',rest:120,mode:'bodyweight',method:'volume'},
-  {name:'EMOM dips',sets:10,reps:'10',rest:60,mode:'bodyweight',method:'emom',interval:60},
-  {name:'Grip (dead hang)',sets:1,reps:'30 s',rest:120,mode:'bodyweight',method:'volume',unit:'sec'}
+{id:"legs-a",name:"Tue · Legs A + arms",exercises:[
+  {"name": "Forward lunges", "sets": 3, "reps": "10 / leg", "rest": 90, "mode": "bodyweight", "method": "volume", "note": "3 s tempo down."},
+  {"name": "Bulgarian split squats", "sets": 3, "reps": "8-10 / leg", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "Set 3: 2 s pause at the bottom."},
+  {"name": "Walking lunges", "sets": 3, "reps": "12 / leg", "rest": 90, "mode": "bodyweight", "method": "volume"},
+  {"name": "Overhead dumbbell triceps extension", "sets": 3, "reps": "12-15", "rest": 60, "mode": "external", "method": "volume", "note": "3 s tempo down."},
+  {"name": "Hammer curl", "sets": 3, "reps": "10-12", "rest": 60, "mode": "external", "method": "volume"},
+  {"name": "Biceps curl", "sets": 3, "reps": "10-12", "rest": 60, "mode": "external", "method": "volume", "note": "Set 3 as myo-reps (3-4 mini-sets of 3-5 reps, 10-15 s rest)."},
+  {"name": "Crucifix crunch", "sets": 3, "reps": "10-12", "rest": 60, "mode": "bodyweight", "method": "volume"},
+  {"name": "Side plank", "sets": 3, "reps": "30-45 s / side", "rest": 45, "mode": "bodyweight", "method": "volume", "unit": "sec"}
 ]},
-{id:'pull-circuit',name:'Pull (Variation 2)',circuit:{rounds:3,rest:240},exercises:[
-  {name:'Squats',sets:1,reps:'12',rest:0,mode:'bodyweight',method:'volume'},
-  {name:'Lunges',sets:1,reps:'10 / leg',rest:0,mode:'bodyweight',method:'volume'},
-  {name:'Pull-ups',sets:1,reps:'3-6',rest:0,mode:'bodyweight',method:'volume'},
-  {name:'Pronated biceps curl',sets:1,reps:'4',rest:0,mode:'external',method:'volume'},
-  {name:'Dead hang',sets:1,reps:'30 s',rest:0,mode:'bodyweight',method:'volume',unit:'sec'},
-  {name:'Dips',sets:1,reps:'10',rest:0,mode:'bodyweight',method:'volume'}
+{id:"pull-a",name:"Wed · Pull A + dips",exercises:[
+  {"name": "Strict pull-ups, short sets (base)", "sets": 5, "reps": "1-2", "rest": 150, "mode": "bodyweight", "method": "volume", "note": "Never to failure. Rest 2-3 min."},
+  {"name": "Low hold, elbows barely bent", "sets": 3, "reps": "6-8 s", "rest": 120, "mode": "bodyweight", "method": "volume", "unit": "sec", "note": "Active shoulders, no swinging."},
+  {"name": "Feet-elevated Australian pull-ups", "sets": 3, "reps": "8-12", "rest": 90, "mode": "bodyweight", "method": "volume", "note": "1 s pause at the top."},
+  {"name": "Scapular pulls", "sets": 3, "reps": "8-10", "rest": 60, "mode": "bodyweight", "method": "volume"},
+  {"name": "Dips", "sets": 3, "reps": "6-10", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "3 s tempo down, no failure."},
+  {"name": "Dead hang", "sets": 3, "reps": "max", "rest": 60, "mode": "bodyweight", "method": "volume", "unit": "sec"}
 ]},
-{id:'legs',name:'Legs',exercises:[
-  {name:'Squat',sets:3,reps:'8-12',rest:180,mode:'bodyweight',method:'volume'},
-  {name:'Alternating lunges',sets:4,reps:'10 / leg',rest:120,mode:'bodyweight',method:'volume'},
-  {name:'Squat jumps',sets:4,reps:'10-12',rest:120,mode:'bodyweight',method:'volume'},
-  {name:'Deep squat',sets:3,reps:'1 min, then AMRAP',rest:60,mode:'bodyweight',method:'volume'}
+{id:"push-b",name:"Thu · Push B",exercises:[
+  {"name": "Archer push-ups", "sets": 3, "reps": "4-6 / side", "rest": 180, "mode": "bodyweight", "method": "volume", "note": "Strength · 1-2 RIR."},
+  {"name": "Feet-elevated push-ups (mastered variation)", "sets": 3, "reps": "10-15", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "Volume + tempo · 1-2 RIR · 4 s down."},
+  {"name": "Pike push-ups (intermediate variation)", "sets": 3, "reps": "6-10", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "Strength + drop set · 1 RIR · set 3 is a drop set: pike, feet-elevated, regular, no rest."},
+  {"name": "Isometric hold at the bottom of a push-up (chest 2 cm from the floor)", "sets": 3, "reps": "max", "rest": 90, "mode": "bodyweight", "method": "volume", "unit": "sec", "note": "Isometric · max time."}
 ]},
-{id:'abdo',name:'Abs',exercises:[
-  {name:'V-Up',sets:3,reps:'10 reps',rest:120,mode:'bodyweight',method:'volume'},
-  {name:'Mountain Climber',sets:3,reps:'30 s',rest:120,mode:'bodyweight',method:'volume',unit:'sec'},
-  {name:'Russian Twists',sets:3,reps:'15 / side',rest:120,mode:'bodyweight',method:'volume'},
-  {name:'Leg raises',sets:3,reps:'12 reps',rest:120,mode:'bodyweight',method:'volume'},
-  {name:'Plank',sets:2,reps:'1 min 30',rest:60,mode:'bodyweight',method:'volume',unit:'sec'},
-  {name:'Side plank',sets:2,reps:'45 s / side',rest:60,mode:'bodyweight',method:'volume',unit:'sec'}
+{id:"legs-b",name:"Fri · Legs B + arms",exercises:[
+  {"name": "Reverse lunges", "sets": 3, "reps": "10 / leg", "rest": 90, "mode": "bodyweight", "method": "volume", "note": "3 s tempo down."},
+  {"name": "Slow-tempo Bulgarian split squats", "sets": 3, "reps": "8 / leg", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "4 s down, 1 s pause at the bottom."},
+  {"name": "Jump lunges", "sets": 3, "reps": "8", "rest": 90, "mode": "bodyweight", "method": "volume", "note": "Quality first."},
+  {"name": "Dumbbell triceps extension", "sets": 3, "reps": "12-15", "rest": 60, "mode": "external", "method": "volume"},
+  {"name": "Hammer curl", "sets": 3, "reps": "10-12", "rest": 60, "mode": "external", "method": "volume"},
+  {"name": "Plank", "sets": 3, "reps": "45 s", "rest": 45, "mode": "bodyweight", "method": "volume", "unit": "sec"},
+  {"name": "Crucifix crunch", "sets": 3, "reps": "10-12", "rest": 60, "mode": "bodyweight", "method": "volume"}
+]},
+{id:"pull-b",name:"Sat · Pull B + dips",exercises:[
+  {"name": "Strict pull-ups, short sets (base)", "sets": 5, "reps": "1-2", "rest": 150, "mode": "bodyweight", "method": "volume", "note": "Never to failure. Rest 2-3 min."},
+  {"name": "Low hold, elbows barely bent", "sets": 3, "reps": "6-8 s", "rest": 120, "mode": "bodyweight", "method": "volume", "unit": "sec", "note": "Active shoulders, no swinging."},
+  {"name": "Wide-grip Australian pull-ups", "sets": 3, "reps": "10-15", "rest": 90, "mode": "bodyweight", "method": "volume", "note": "1 s pause at the top."},
+  {"name": "Dips", "sets": 3, "reps": "max - 2", "rest": 120, "mode": "bodyweight", "method": "volume", "note": "No failure."},
+  {"name": "Hanging leg raises", "sets": 3, "reps": "8-12", "rest": 60, "mode": "bodyweight", "method": "volume"},
+  {"name": "TEST: max strict pull-ups in 1 set (filmed)", "sets": 1, "reps": "max", "rest": 0, "mode": "bodyweight", "method": "volume", "note": "Every 4 weeks, after 2 days without pulling."}
 ]}
 ];
 const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -355,7 +377,7 @@ const describe=ex=>{const p=plan(ex),r=`rest ${fmt(p.rest)}`;return p.m==='pyram
 const applyMethod=(ex,m)=>{const k=METHODS[m]?m:'volume',v=METHODS[k];ex.method=k;ex.sets=v.sets;ex.reps=v.reps;ex.rest=v.rest;if(k==='emom')ex.interval=60};
 function normalize(raw){if(!raw||typeof raw!=='object'||Array.isArray(raw))throw Error('Unreadable backup.');const program=(Array.isArray(raw.program)?raw.program:starter()).map(d=>({id:String(d.id||uid('day')),name:String(d.name||'Workout'),circuit:d.circuit&&typeof d.circuit==='object'?{rounds:Math.max(1,Math.min(20,Math.floor(+d.circuit.rounds)||3)),rest:Math.max(0,Math.min(3600,Number.isFinite(+d.circuit.rest)?Math.floor(+d.circuit.rest):240))}:null,exercises:(Array.isArray(d.exercises)?d.exercises:[]).map(e=>Array.isArray(e)?{id:uid('ex'),name:String(e[0]||'Exercise'),sets:+e[1]||3,reps:String(e[2]||'8-12'),rest:+e[3]||90,mode:e[4]==='bodyweight'||(!e[4]&&inferMode(e[0]))?'bodyweight':'external',method:'volume',interval:60,unit:'reps'}:{id:String(e.id||uid('ex')),name:String(e.name||'Exercise'),sets:Math.max(1,+e.sets||3),reps:String(e.reps||'8-12'),rest:Math.max(0,+e.rest||0),mode:e.mode==='bodyweight'||(!e.mode&&inferMode(e.name))?'bodyweight':'external',method:METHODS[e.method]?e.method:'volume',interval:Math.max(15,Math.min(600,+e.interval||60)),unit:e.unit==='sec'?'sec':'reps',note:String(e.note||'').slice(0,600)})}));const modes=new Map(program.flatMap(d=>d.exercises.map(e=>[e.id,e.mode])));const logs=(Array.isArray(raw.logs)?raw.logs:[]).map(l=>({...l,weight:Number.isFinite(+l.weight)?Math.max(0,+l.weight):0,reps:Number.isFinite(+l.reps)?Math.max(0,+l.reps):0,volume:Number.isFinite(+l.volume)?Math.max(0,+l.volume):0,repVolume:Number.isFinite(+l.repVolume)?Math.max(0,+l.repVolume):Math.max(0,+l.reps||0),epley:Number.isFinite(+l.epley)&&+l.epley>0?+l.epley:null,mode:l.mode==='bodyweight'||(!l.mode&&modes.get(l.exerciseId)==='bodyweight')?'bodyweight':'external'})).filter(l=>l.date&&l.exerciseId&&l.reps>0);for(const log of logs){if(!modes.has(log.exerciseId)){const owner=program.find(d=>d.id===log.dayId),match=owner?.exercises.find(e=>e.name===log.exerciseName)||program.flatMap(d=>d.exercises).find(e=>e.name===log.exerciseName);if(match){log.exerciseId=match.id;log.mode=match.mode}}}const sessions=Array.isArray(raw.sessions)?raw.sessions.filter(x=>x&&x.date&&x.dayId):[];const profile={bodyweightKg:Number.isFinite(+raw.profile?.bodyweightKg)&&+raw.profile.bodyweightKg>0?+raw.profile.bodyweightKg:null,soundEnabled:!!raw.profile?.soundEnabled,warmup:raw.profile?.warmup!==false,theme:['amber','mono','green','yellow'].includes(raw.profile?.theme)?raw.profile.theme:'amber',timer:{mode:['bottom','top','left','right','free'].includes(raw.profile?.timer?.mode)?raw.profile.timer.mode:'bottom',x:Math.min(1,Math.max(0,+raw.profile?.timer?.x||.5)),y:Math.min(1,Math.max(0,+raw.profile?.timer?.y||.6))}};if(raw.circuitSeeded!==true&&!program.some(d=>d.circuit))program.push(makeCircuit());let activeSession=raw.activeSession&&typeof raw.activeSession==='object'?{...raw.activeSession}:null;if(activeSession&&!program.some(d=>d.id===activeSession.dayId))activeSession=null;return{...raw,circuitSeeded:true,program,logs,sessions,profile,activeSession,selectedDayId:program.some(d=>d.id===raw.selectedDayId)?raw.selectedDayId:(program[0]?.id||null)}}
 function load(){const empty=()=>normalize({program:starter(),logs:[],sessions:[]});try{const current=localStorage.getItem(KEY);let raw=current,migrated=false;if(current){try{return{db:normalize(JSON.parse(current)),migrated:false,failed:false}}catch(currentError){raw=localStorage.getItem(OLD_KEY);if(!raw)throw currentError;migrated=true}}else{raw=localStorage.getItem(OLD_KEY);migrated=!!raw}const db=raw?normalize(JSON.parse(raw)):empty();if(migrated){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(_){return{db,migrated:false,failed:true}}}return{db,migrated,failed:false}}catch(error){return{db:empty(),migrated:false,failed:true}}}
-const loaded=load();let db=loaded.db,view='train',dayId=db.activeSession?.dayId||db.selectedDayId||db.program[0]?.id||null,undoData=null,toastActionCallback=null,dialogAction=null,dialogOpener=null,toastTimer=null,tick=null,saveTimer=null,viewAnimation=null,timerAnimation=null,timerGeneration=0,modalCloseTimer=null,modalGeneration=0;
+const loaded=load();const PPL_FLAG='oxymuscle-ppl-v1';try{if(!localStorage.getItem(PPL_FLAG)){const fresh=normalize({program:starter(),logs:[],sessions:[]});loaded.db.program=fresh.program;loaded.db.selectedDayId=fresh.program[0]?.id||null;loaded.db.activeSession=null;localStorage.setItem(KEY,JSON.stringify(loaded.db));localStorage.setItem(PPL_FLAG,'1')}}catch(_){}let db=loaded.db,view='train',dayId=db.activeSession?.dayId||db.selectedDayId||db.program[0]?.id||null,undoData=null,toastActionCallback=null,dialogAction=null,dialogOpener=null,toastTimer=null,tick=null,saveTimer=null,viewAnimation=null,timerAnimation=null,timerGeneration=0,modalCloseTimer=null,modalGeneration=0;
 const dateKey=(date=new Date())=>`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
 const STRIP=(k,v)=>k==='_newRecords'?undefined:v;
 function save(next=db,quiet=false){if(typeof next==='boolean'){quiet=next;next=db}clearTimeout(saveTimer);saveTimer=null;try{localStorage.setItem(KEY,JSON.stringify(next,STRIP));return true}catch(e){if(!quiet)showToast('Saving failed: export your data before closing.','Data',()=>switchView('data'));return false}}
